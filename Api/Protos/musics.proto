@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option csharp_namespace = "Api.Grpc";
+
+package musics;
+
+service MusicService {
+  rpc GetMusics (GetMusicsRequest) returns (GetMusicsResponse);
+  rpc CreateMusic (CreateMusicRequest) returns (MusicResponse);
+}
+
+message GetMusicsRequest {
+  optional int32 playlist_id = 1;
+  optional string artist = 2;
+  optional string search_term = 3;
+  optional int32 page = 4;
+  optional int32 page_size = 5;
+}
+
+message GetMusicsResponse {
+  repeated MusicResponse musics = 1;
+  int32 total_count = 2;
+  optional int32 page = 3;
+  optional int32 page_size = 4;
+  optional int32 total_pages = 5;
+}
+
+message CreateMusicRequest {
+  string name = 1;
+  string artist = 2;
+  string audio_url = 3;
+}
+
+message MusicResponse {
+  int32 id = 1;
+  string name = 2;
+  string artist = 3;
+  string audio_url = 4;
+}

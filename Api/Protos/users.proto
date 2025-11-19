@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option csharp_namespace = "Api.Grpc";
+
+package users;
+
+import "google/protobuf/timestamp.proto";
+
+service UserService {
+  rpc GetUsers (GetUsersRequest) returns (GetUsersResponse);
+  rpc CreateUser (CreateUserRequest) returns (UserResponse);
+}
+
+message GetUsersRequest {
+  optional int32 page = 1;
+  optional int32 page_size = 2;
+}
+
+message GetUsersResponse {
+  repeated UserResponse users = 1;
+  int32 total_count = 2;
+  optional int32 page = 3;
+  optional int32 page_size = 4;
+  optional int32 total_pages = 5;
+}
+
+message CreateUserRequest {
+  string name = 1;
+  google.protobuf.Timestamp birth_date = 2;
+  string email = 3;
+}
+
+message UserResponse {
+  int32 id = 1;
+  string name = 2;
+  google.protobuf.Timestamp birth_date = 3;
+  string email = 4;
+  int32 age = 5;
+}

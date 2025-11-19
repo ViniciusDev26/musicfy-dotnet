@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option csharp_namespace = "Api.Grpc";
+
+package playlists;
+
+import "google/protobuf/timestamp.proto";
+
+service PlaylistService {
+  rpc GetPlaylists (GetPlaylistsRequest) returns (GetPlaylistsResponse);
+  rpc CreatePlaylist (CreatePlaylistRequest) returns (PlaylistResponse);
+}
+
+message GetPlaylistsRequest {
+  optional int32 user_id = 1;
+  optional bool system_only = 2;
+  optional int32 page = 3;
+  optional int32 page_size = 4;
+}
+
+message GetPlaylistsResponse {
+  repeated PlaylistResponse playlists = 1;
+  int32 total_count = 2;
+  optional int32 page = 3;
+  optional int32 page_size = 4;
+  optional int32 total_pages = 5;
+}
+
+message CreatePlaylistRequest {
+  string name = 1;
+  optional int32 user_id = 2;
+  repeated int32 music_ids = 3;
+}
+
+message PlaylistResponse {
+  int32 id = 1;
+  string name = 2;
+  optional int32 user_id = 3;
+  bool is_system_playlist = 4;
+  google.protobuf.Timestamp created_at = 5;
+  optional string owner_name = 6;
+}
